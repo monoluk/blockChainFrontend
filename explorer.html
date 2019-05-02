@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<title>Block Store</title>
+	<link rel="stylesheet" type="text/css" href="./store.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+	<div class="container bg-light">
+
+	<div class="jumbotron rounded">
+		<h1>Welcome to The Block</h1>
+		<h4>Your Passport to the Future of Finance. The most Trusted and Secured Data Structure.</h4>
+	</div>
+
+	
+<nav class="navbar navbar-expand-lg rounded navbar-light bg-warning">
+  <a class="navbar-brand" href="#"><img src="./img/favicon.ico" width="30" height="30" class="d-inline-block align-top" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./explorer.html">Investment</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Wallet
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="./explorer.html">Explorer</a>
+          <a class="dropdown-item" href="./address.html">Address Statement</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="./payment.html">Payment</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+		
+	
+	
+<!-- <div id="home"></div> -->
+<img src="./img/blockchainToget.jpg " alt="Lights" style="width:100%"> <br/><br/>
+
+<div class="w3-container">
+  <div class="w3-panel w3-card w3-blue w3-round-large container" ><p>You Can Locate Block and Transaction Information Here.</p></div>
+</div>
+
+
+
+	<form id="searchBlockForm" class="container">
+		<div class="form-check" id="block">
+			<input class="form-check-input" type="radio" name="exampleRadios"  value="block" onclick="checkBlock()" >
+			<label class="form-check-label" for="exampleRadios1">
+				Block
+			</label>
+
+		</div>
+			<br/>
+
+			<div class="form-group hide" id="blockcriteria"  >
+				<select class="form-control">
+					<option value="blockIndex">Block Index</option>
+					<option value="hash">Block Hash</option>
+				</select>
+				<div class="form-group">
+					<label for="exampleFormControlInput1" class="text-dark">You Can Search for Index or Hash</label>
+					<input type="text" class="form-control" id="blockinput" placeholder="Search">
+				</div>
+				<button class="btn btn-primary" type="submit" id="searchblockbtn1">Search</button>
+				<br/><br/>
+			
+
+			<table id="blockTable" >
+				<thead>
+					<tr>
+						<th scope="col" id="index"></th>
+						<th scope="col" id="indexcontent" ></th>
+					</tr>
+					<tr>
+						<th scope="col" id="timeStamp"></th>
+						<th scope="col" id="timeStampCotent" ></th>
+					</tr>
+					<tr>
+						<th scope="col" id="nonce"></th>
+						<th scope="col" id="nonceContent" ></th>
+					</tr>
+					<tr>
+						<th scope="col" id="merkleRoot"></th>
+						<th scope="col" id="merkleRootContent"></th>
+					</tr>
+					<tr>
+						<th scope="col" id="hash"></th>
+						<th scope="col" id="hashContent" ></th>
+					</tr>
+					<tr>
+						<th scope="col" id="previousHash"></th>
+						<th scope="col" id="previousHashContent" style="word-wrap: break-word"></th>
+					</tr>
+					<tr>
+						<th scope="col" id="numTrans"></th>
+						<th scope="col" id="numTransContent" ></th>
+					</tr>
+				</thead>
+				
+			</table>
+
+			<div id="transactionsResult" col-3></div><br>
+
+		</div>  <!-- line 63 blockcriteria -->
+		
+
+		<div class="form-check">
+			<input class="form-check-input" type="radio" name="exampleRadios" id="transaction" value="transaction" onclick="checkTransaction()" >
+			<label class="form-check-label" for="exampleRadios2">
+				Transaction
+			</label>
+		</div>
+
+
+		<div class="form-group hide" id="transactioncriteria" >
+			<select class="form-control">
+				<option value="transactionID">Transaction ID</option>
+				<option value="hash">Amount</option>
+				<option value="sender">Sender</option>
+			</select>
+			<label for="exampleFormControlInput1">You Can Search for Index or Hash</label>
+			<input type="text" class="form-control" id="transactioninput" placeholder="Search"><br/>
+			<button class="btn btn-primary" type="button" id="searchTran">Search</button>
+		</div>
+</form>
+
+		<div id="paymentSearchResult" class="hide">
+			<table class="table table-sm">
+
+				<tbody>
+					<tr>
+						<td id="transactionIDSearch"></td>
+						<td id="transactionIDSearchContent"></td>
+					</tr>
+
+					<tr>
+						<td id="amountSearch"></td>
+						<td id="amountSearchContent"></td>
+					</tr>
+					<tr>
+						<td id="senderSearch"></td>
+						<td id="senderSearchContent"></td>
+					</tr>
+					<tr>
+						<td id="recipientSearch"></td>
+						<td id="recipientSearchContent"></td>
+					</tr>
+					<tr>
+						<td id="inBlock"><b></b></td>
+					</tr>
+					<tr>
+						<th scope="col" id="indexSearch"></th>
+						<th scope="col" ><a id="indexSearchcontent" class="underline" href="#"></a></th>
+					</tr>
+					<tr>
+						<th scope="col" id="timeStampSearch"></th>
+						<th scope="col" id="timeStampSearchCotent" ></th>
+					</tr>
+					<tr>
+						<th scope="col" id="hashSearch"></th>
+						<th scope="col" ><a id="hashSearchContent" class="underline" href="#"></th>
+					</tr>
+				</tbody>
+			</table>
+		</div><br>
+
+</div> <!-- to top container line 18 -->
+
+
+
+	<script src="http://code.jquery.com/jquery-1.9.0rc1.js"></script>
+
+	<script src="http://code.jquery.com/jquery-migrate-1.0.0rc1.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="scripts/test.js"></script>
+</body>
+
+<footer class="page-footer bg-light container rounded">
+  <div class="container">
+
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © 2019 All Rights Reserved.
+      <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    </div>
+  </div>
+</footer>
+</html>
+
+<!-- The swith to container, add "container" to Navbar, line 60, 71, 82, 130, 146, and store CSS fixed1,2 width:86.8% -->
