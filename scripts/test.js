@@ -26,7 +26,8 @@ var token;
   // });
 
   function searchBlock(value){
-    axios.get('http://localhost:3001/block/'+value)
+    //axios.get('http://localhost:3001/block/'+value)
+    axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/block/'+value)
     .then(response => {
       let transactionsArray = response.data.transactions;
 
@@ -95,7 +96,7 @@ var token;
   let recipientInput = $("#recipientInput").val();
 
 
-  axios.post('http://localhost:3001/transaction/broadcast',
+  axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/transaction/broadcast',
     {"amount" :amountInput,
     "sender" : senderInput,
     "recipient" : recipientInput
@@ -125,7 +126,7 @@ var token;
 $("#login").click(function(event){
   event.preventDefault();
   
-  axios.post('http://localhost:3001/users/login',{
+  axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/login',{
     "email" : $("#email").val(),
     "password" : $("#pwd").val()
   })
@@ -144,7 +145,7 @@ $("#login").click(function(event){
 
  $("#searchTran").click(function(){
    let value = $("#transactioninput").val();
-   axios.get('http://localhost:3001/transaction/'+value)
+   axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/transaction/'+value)
    .then(response=>{
 
     $("#paymentSearchResult").show();
@@ -198,7 +199,7 @@ $("#login").click(function(event){
   event.preventDefault();
   let address = $("#addressInput").val();
 
-  axios.get('http://localhost:3001/address/'+address)
+  axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/address/'+address)
   .then(response=>{
     let transactionsArray = response.data.addressData.addressTransactions;
     console.log(transactionsArray);
@@ -212,7 +213,10 @@ $("#login").click(function(event){
       html+="<td scope=col>"+"$"+transactionsArray[i].amount+"</td>";
       html+="<td scope=col>"+transactionsArray[i].sender+"</td>";
       html+="<td scope=col>"+transactionsArray[i].recipient+"</td>";
-      html+="<td scope=col>"+crdr+"</td>";
+      if(crdr === 'Debit'){
+        html+="<td scope=col class=redText>"+crdr+"</td>";
+      }else{
+      html+="<td scope=col>"+crdr+"</td>";}
 
       html+="</tr>";
 
@@ -221,6 +225,7 @@ $("#login").click(function(event){
     $("#transactionsResultForAddress").html(html);
     $("#availableBal").text("Available Balance: ");
     $("#availableBalContent").text(response.data.addressData.addressBalance);
+
   }).catch(function(error){
     alert("Address Not Found!")
   })
