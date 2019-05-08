@@ -25,6 +25,27 @@ var token;
   //   $("p").show();
   // });
 
+  function userLogin(loginData){
+
+    console.log('login funtion called');
+    axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/login',{
+      "email" : loginData.unameSignup,
+      "password" : loginData.pwdSignup
+    }).then(response=>{
+      console.log('token:' + response.data.token );
+      token = response.data.token;
+
+      $('#loginForm').hide();
+      $('#norEnrolled').hide();
+      $('#authSuccess').text(response.data.message);
+
+    })
+
+
+
+
+  }
+
   function searchBlock(value){
     //axios.get('http://localhost:3001/block/'+value)
     axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/block/'+value)
@@ -119,11 +140,11 @@ var token;
   })
   .catch(err=>{
    alert("Please login before making payment!");
-  });
+ });
 
 })
 
-$("#login").click(function(event){
+ $("#login").click(function(event){
   event.preventDefault();
   
   axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/login',{
@@ -216,20 +237,42 @@ $("#login").click(function(event){
       if(crdr === 'Debit'){
         html+="<td scope=col class=redText>"+crdr+"</td>";
       }else{
-      html+="<td scope=col>"+crdr+"</td>";}
+        html+="<td scope=col>"+crdr+"</td>";}
 
-      html+="</tr>";
+        html+="</tr>";
 
-    }
-    html+="</table>";
-    $("#transactionsResultForAddress").html(html);
-    $("#availableBal").text("Available Balance: ");
-    $("#availableBalContent").text(response.data.addressData.addressBalance);
+      }
+      html+="</table>";
+      $("#transactionsResultForAddress").html(html);
+      $("#availableBal").text("Available Balance: ");
+      $("#availableBalContent").text(response.data.addressData.addressBalance);
 
-  }).catch(function(error){
-    alert("Address Not Found!")
+    }).catch(function(error){
+      alert("Address Not Found!")
+    })
+
   })
 
+
+ $("#signupForm").submit(function(event){
+  event.preventDefault();
+  
+  let unameSignup = $("#unameSignup").val();
+  let pwdSignup = $("#pwdSignup").val();
+
+
+  axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/signup',{
+    "email" : unameSignup,
+    "password" : pwdSignup
+  }).then(response=>{
+    
+    alert(response.data.message+' Redirecting to payment...');
+    window.location = "./payment.html";
+  })
+  .catch(err=>{
+    alert("User name already exist, please try again");
+  })
+  
 })
 
 
