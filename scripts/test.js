@@ -223,7 +223,8 @@ var token;
   axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/address/'+address)
   .then(response=>{
     let transactionsArray = response.data.addressData.addressTransactions;
-    console.log(transactionsArray);
+    //console.log(transactionsArray);
+    var avaiBal = 0;
     $("#numTransAddress").text("Number of Transactions Associated With This Address:");
     $("#numTransAddressContent").text(transactionsArray.length);
     var html = "<table class=table> <thead class=thead-light><tr><th><b>#</b></th> <th><b>Amount</b></th> <th><b>Sender</b></th> <th><b>Recipient</b></th><th><b>Cr/Dr</b></th></tr></thead>";
@@ -236,16 +237,20 @@ var token;
       html+="<td scope=col>"+transactionsArray[i].recipient+"</td>";
       if(crdr === 'Debit'){
         html+="<td scope=col class=redText>"+crdr+"</td>";
+        avaiBal -= transactionsArray[i].amount;
       }else{
-        html+="<td scope=col>"+crdr+"</td>";}
-
+        avaiBal += transactionsArray[i].amount;
+        html+="<td scope=col>"+crdr+"</td>";
+        
+      }
+console.log(transactionsArray[i].amount, avaiBal);
         html+="</tr>";
 
       }
       html+="</table>";
       $("#transactionsResultForAddress").html(html);
       $("#availableBal").text("Available Balance: ");
-      $("#availableBalContent").text(response.data.addressData.addressBalance);
+      $("#availableBalContent").text(avaiBal);
 
     }).catch(function(error){
       alert("Address Not Found!")
