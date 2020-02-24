@@ -1,6 +1,6 @@
 
 
-
+//axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/login',{}
 
 // var elementsArray = document.getElementsByTagName("h1");
 // var element = elementsArray[0];
@@ -28,7 +28,7 @@ var token;
   function userLogin(loginData){
 
     console.log('login funtion called');
-    axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/login',{
+    axios.post('http://104.196.242.235/node/users/login',{
       "email" : loginData.unameSignup,
       "password" : loginData.pwdSignup
     }).then(response=>{
@@ -48,7 +48,7 @@ var token;
 
   function searchBlock(value){
     //axios.get('http://localhost:3001/block/'+value)
-    axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/block/'+value)
+    axios.get('http://104.196.242.235/node/block/'+value)
     .then(response => {
       let transactionsArray = response.data.transactions;
 
@@ -117,7 +117,7 @@ var token;
   let recipientInput = $("#recipientInput").val();
 
 
-  axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/transaction/broadcast',
+  axios.post('http://104.196.242.235/node/transaction/broadcast',
     {"amount" :amountInput,
     "sender" : senderInput,
     "recipient" : recipientInput
@@ -147,7 +147,7 @@ var token;
  $("#login").click(function(event){
   event.preventDefault();
   
-  axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/login',{
+  axios.post('http://104.196.242.235/node/users/login',{
     "email" : $("#email").val(),
     "password" : $("#pwd").val()
   })
@@ -166,7 +166,7 @@ var token;
 
  $("#searchTran").click(function(){
    let value = $("#transactioninput").val();
-   axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/transaction/'+value)
+   axios.get('http://104.196.242.235/node/transaction/'+value)
    .then(response=>{
 
     $("#paymentSearchResult").show();
@@ -220,7 +220,7 @@ var token;
   event.preventDefault();
   let address = $("#addressInput").val();
 
-  axios.get('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/address/'+address)
+  axios.get('http://104.196.242.235/node/address/'+address)
   .then(response=>{
     let transactionsArray = response.data.addressData.addressTransactions;
     //console.log(transactionsArray);
@@ -266,7 +266,7 @@ console.log(transactionsArray[i].amount, avaiBal);
   let pwdSignup = $("#pwdSignup").val();
 
 
-  axios.post('http://ec2-35-166-255-113.us-west-2.compute.amazonaws.com:3001/users/signup',{
+  axios.post('http://104.196.242.235/node/users/signup',{
     "email" : unameSignup,
     "password" : pwdSignup
   }).then(response=>{
